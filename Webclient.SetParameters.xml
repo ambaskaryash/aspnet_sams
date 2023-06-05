@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="SAMS" />
+  <setParameter name="DefaultConnection-Web.config Connection String" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-EMS.Web-20170213233724;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-EMS.Web-20170213233724.mdf" />
+  <setParameter name="DataModel-Web.config Connection String" value="Data Source=142.93.222.110;Initial Catalog=sams;User ID=SA;Password=@dmin123" />
+</parameters>

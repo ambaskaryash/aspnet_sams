@@ -1,0 +1,35 @@
+﻿@using Webclient.Helpers;
+
+@{
+    ViewBag.Title = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("_AttendanceLeftMenuPartial")
+<div class="app-content content">
+    <div class="content-wrapper" style="margin-top:0%">
+        <div class="content-body">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@Url.Script("~/Areas/AttendanceTracking/scripts/portalUserController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/companyController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/changePasswordController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/dashboardController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/departmentController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/designationController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/employeeController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/leavePolicyController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/noticeBoardController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/taskController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/setupController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/userCreation.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/employeeLocationMapController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/leaveController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/attendanceReportController.js")
+@Url.Script("~/Areas/AttendanceTracking/scripts/holidayController.js")
+
+

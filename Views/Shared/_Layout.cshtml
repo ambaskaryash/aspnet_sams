@@ -1,0 +1,108 @@
+﻿@using Webclient.Helpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+    <link rel="icon" type="image/png" href="~/Content/images/Logo_EMS.png" />
+
+    <title>EMS - Employee Management System</title>
+
+    <script src="~/Content/js/core/libraries/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="~/Content/js/core/libraries/bootstrap.min.js"></script>
+
+    <link href="~/Content/vendors/css/vendors.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/charts/apexcharts.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/extensions/tether-theme-arrows.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/extensions/tether.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/extensions/shepherd-theme-default.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="~/Content/css/colors.css" rel="stylesheet" />
+    <link href="~/Content/css/components.css" rel="stylesheet" />
+    <link href="~/Content/css/themes/dark-layout.css" rel="stylesheet" />
+    <link href="~/Content/css/themes/semi-dark-layout.css" rel="stylesheet" />
+    <link href="~/Content/css/core/menu/menu-types/vertical-menu.css" rel="stylesheet" />
+    <link href="~/Content/css/core/colors/palette-gradient.css" rel="stylesheet" />
+    <link href="~/Content/css/pages/dashboard-analytics.css" rel="stylesheet" />
+    <link href="~/Content/css/pages/card-analytics.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/tour/tour.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/extensions/jquery.contextMenu.min.css" rel="stylesheet" />
+    <link href="~/Content/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/components.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Scripts/Select2_4.0.0/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-confirm/jquery-confirm.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Scripts/jqueryLoader/jquery.loader.css" rel="stylesheet" />
+    <link href="~/Scripts/Angularjs/angular-material.min.css" rel="stylesheet" />
+    <link href="~/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Scripts/jquery-ui-themes-1.12.1/themes/hot-sneaks/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-themes-1.12.1/themes/hot-sneaks/theme.css" rel="stylesheet" />
+    <link href="~/Scripts/toaster_plugin/jquery.toast.css" rel="stylesheet" />
+
+
+
+    <script src="~/Scripts/Angularjs/angular.js"></script>
+    <script src="~/Scripts/Angularjs/angular-animate.js"></script>
+    <script src="~/Scripts/Angularjs/angular-aria.min.js"></script>
+    <script src="~/Scripts/Angularjs/angular-messages.min.js"></script>
+    <script src="~/Scripts/Angularjs/angular-material.min.js"></script>
+    <script src="~/Content/themes/bootstrap-4/ui-bootstrap.js"></script>
+    <script src="~/Content/themes/bootstrap-4/ui-bootstrap-tpls.js"></script>
+    <script src="~/Content/js/scripts/angularjs-dropdown-multiselect.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+    <script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2.28/angular.js" data-semver="1.2.28"></script>
+
+    @Url.Css("~/Content/customCss.css")
+
+    @Url.Script("~/angularjs/app.js")
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=google_map_api_key&libraries=places"></script>
+    <script src="~/Content/js/scripts/vs-google-autocomplete.js"></script>
+    <script src="~/Content/vendors/js/vendors.min.js"></script>
+
+    <script src="~/Content/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="~/Content/vendors/js/extensions/tether.min.js"></script>
+    <script src="~/Content/vendors/js/extensions/shepherd.min.js"></script>
+
+    <script src="~/Content/js/core/app-menu.js"></script>
+    <script src="~/Content/js/core/app.js"></script>
+    <script src="~/Scripts/Angularjs/angular-route.js"></script>
+    <script src="~/Content/js/scripts/components.js"></script>
+
+    <script src="~/Scripts/toaster_plugin/jquery.toast.js"></script>
+    <script src="~/Scripts/jquery-confirm/jquery-confirm.js"></script>
+    <script src="~/Scripts/jqueryLoader/jquery.loader.js"></script>
+
+    <link href="~/Scripts/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+    <script src="~/Scripts/fullcalendar/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar/fullcalendar.min.js"></script>
+
+    <script src="~/jqGrid/js/i18n/grid.locale-en.js"></script>
+    <script src="~/jqGrid/js/jquery.jqGrid.min.js"></script>
+</head>
+
+<body ng-app="medicareApp" style="background-color:#ffffff;height:auto" class="vertical-layout  semi-dark-layout 2-columns  navbar-floating footer-static" data-open="click" menu = 'vertical-menu' data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
+    <div style="width:100%;">
+        @RenderBody()
+    </div>
+
+</body>
+
+</html>
+
+
+

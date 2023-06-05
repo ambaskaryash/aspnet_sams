@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="leaveController">
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+   
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/Leave/GetAnnualLeaveCalculation',
+            datatype: "json",
+            colNames: ['Id', 'Employee Name', 'Date of Joining', 'Annual Leave Days', 'Leave Entitle', 'Days Completed', 'Leave Earned', 'Leave Taken', 'Balance',
+                        'Last date of leave consumption','Extend  Last date of leave','Reason'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 120, search: true  },
+                { name: 'JoiningDateVw', index: 'JoiningDateVw', width: 120, search: true  },
+                { name: 'AnnualLeaveDays', index: 'AnnualLeaveDays', width: 120, search: true  },
+                { name: 'LeaveEntitlement', index: 'LeaveEntitlement', width: 120, search: true },
+                { name: 'CompleteDays', index: 'CompleteDays', width: 200, search: true },
+                { name: 'EarnedLeave', index: 'EarnedLeave', width: 200, search: true },
+                { name: 'TakenLeave', index: 'TakenLeave', width: 200, search: true },
+                { name: 'Balance', index: 'Balance', width: 200, search: true },
+                { name: 'LastDateLeaveVw', index: 'LastDateLeaveVw', width: 200, search: true },
+                { name: 'ExtendedLastDateVw', index: 'ExtendedLastDateVw', width: 200, search: true },
+                { name: 'Reason', index: 'Reason', width: 200, search: true },
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'EmployeeName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: $(window).width()-350,
+            rownumbers: true,
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            caption:"Annual Leave Calculation"
+            
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+</script>

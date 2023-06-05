@@ -1,0 +1,73 @@
+﻿<style type="text/css">
+    .modal-xl {
+            width: 80% !important;
+            margin-left: 12%
+        }
+</style>
+<div id="fundApprovalSetup">
+    <div class="modal-header">
+        <div class="modal-title">Employee Monthly Attendance Details</div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+        <div class="col-md-1" style="float:right">
+            <a class="export-excel" style="float:right;cursor:pointer" title="export to excel" ng-click="EmployeeMonthlyAttendanceReportExportToExcel()"></a>
+        </div>
+        <div style="margin-top:50px" class="row" ng-init="GetMonthlyAttendanceReports()">
+            <div class="col-sm-12">
+                <table id="gridDetailsList"></table>
+                <div id="gridDetailsPager"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+    </div>
+
+</div>
+<script type="text/javascript">
+    function getMonthlyDetails(url) {
+        jQuery("#gridDetailsList").jqGrid({
+            url: url,
+            datatype: "json",
+            colNames: ['Id', 'Employee Name', 'Department', 'Designation', 'Login Date', 'Login Time', 'Login Location',
+                'Log Out Date','Log out Time','Log Out Location', 'Office Hours','Completed Hours','Over Time'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 150, search: true },
+                { name: 'DepartmentName', index: 'DepartmentName', width: 130, search: true },
+                { name: 'DesignationName', index: 'DesignationName', width: 130, search: true },
+                { name: 'LogInDate', index: 'LogInDate', width: 120, search: true },
+                { name: 'LogInTime', index: 'LogInTime', width: 120, search: true },
+                { name: 'LogInLocation', index: 'LogInLocation', width: 120, search: true },
+                { name: 'LogOutDate', index: 'LogOutDate', width: 120, search: false },
+                { name: 'LogOutTime', index: 'LogOutTime', width: 120, search: false },
+                { name: 'LogOutLocation', index: 'LogOutLocation', width: 150, search: false },
+                { name: 'OfficeHours', index: 'OfficeHours', width: 120, search: false },
+                { name: 'CompletedHoursString', index: 'CompletedHoursString', width: 160, search: false },
+                { name: 'OverTimeString', index: 'OverTimeString', width: 120, search: false },
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridDetailsPager',
+            sortname: 'EmployeeName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: $(window).width() - 350,
+            viewrecords: true,
+            rownumbers: true,
+            shrinkToFit: true,
+            emptyrecords: "No records to view",
+            caption: "Employee Monthly Attendance Details Reports"
+
+        });
+        jQuery("#gridDetailsList").jqGrid('navGrid', "#gridDetailsPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridDetailsList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+</script>

@@ -1,0 +1,29 @@
+﻿.navbar{background-color: #265728!important;}
+
+#prescription .panel-heading {
+    background-color: #74cd74!important;
+    color: #fff!important;
+}
+.modal-header {
+    background-color: #74cd74!important;
+}
+#prescription textarea {
+    background-color: #fff!important;
+}
+.btn-primary {
+    background-color: #449D44;
+    color: #fff;
+    border: none;
+}
+.panel {
+    border-color: #74cd74!important;
+    border-radius: 0;
+}
+
+.btn-xs, .btn-group-xs > .btn { border-radius: 0px;}
+
+.btn-background-none {
+    background-color: #74CD74;
+    border-radius: 0px;
+    border-color: #74CD74!important;
+}

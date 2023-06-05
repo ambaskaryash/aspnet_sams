@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Live Tracking";
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+    <style type="text/css">
+        #map {
+            height: 550px !important;
+            overflow: scroll;
+            width: 1040px;
+        }
+
+            #map img {
+                max-width: inherit !important;
+                max-height: inherit !important
+            }
+    </style>
+    <h4 style="margin-left:10px">Current Location</h4>
+    <div  class="container-fluid" id="divWrapper" ng-controller="employeeLocationMapController">
+       <div class="row">
+           <div class="col-12">
+               <div id="map" ng-init="loadLocationMap()"></div>
+           </div>
+       </div>
+        
+    </div>
+    
+

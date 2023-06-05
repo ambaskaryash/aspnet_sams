@@ -1,0 +1,36 @@
+﻿.navbar{background-color: #32C787!important;}
+
+#prescription .panel-heading {
+    background-color:#32C787 !important;
+}
+.modal-header {
+    background-color: #32C787!important;
+}
+
+#prescription {
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.btn-primary {
+    background-color: #32C787;
+    color: #fff;
+    border: none;
+}
+.panel {
+    border-color: #32C787!important;
+    border-radius: 0;
+}
+
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #32C787!important;
+}
+
+.panel-back {
+    background-color: #5BD29F;
+}
+.panel-back textarea {
+    background-color: #5BD29F;
+}

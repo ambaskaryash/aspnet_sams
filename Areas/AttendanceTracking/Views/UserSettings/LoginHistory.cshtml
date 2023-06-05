@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+
+    .ui-jqgrid .ui-jqgrid-bdiv {
+        overflow-x: hidden !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="portalUserController">
+    <h4>Employee login history from app</h4>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/UserSettings/GetUserLoginHistoryList',
+            datatype: "json",
+            colNames: ['id', '', 'Full Name', 'Login ID', 'Last Login Time', 'Device Identifier', 'Device Name', 'Device Brand','Model'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'Edit', index: 'Edit', width: 90, search: false, sortable: false, formatter: editFomatter,align:'center' },
+                { name: 'FullName', index: 'FullName', width: 180, search: true },
+                { name: 'LoginID', index: 'LoginID', width: 120 },
+                { name: 'LastloginTime', index: 'LastloginTime', width: 130 },
+                { name: 'UniqueDeviceIdentifier', index: 'UniqueDeviceIdentifier', width: 90 },
+                { name: 'DeviceName', index: 'DeviceName', width: 110 },
+                { name: 'DeviceBrand', index: 'DeviceBrand', width: 90 },
+                { name: 'DeviceModelName', index: 'DeviceModelName', width: 120 },
+                
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'FullName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: '100%',
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            rownumbers: true,
+
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    var removeRegisteredDevice = function (id) {
+        angular.element('#divWrapper').scope().removeRegisteredDevice(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    function editFomatter(cellvalue, options, rowObject) {
+      return "<a style='color:blue' class='pointer' onclick=\"removeRegisteredDevice('" + rowObject.Id + "')\">Remove Device</a>";
+    }
+
+</script>

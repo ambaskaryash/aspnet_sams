@@ -1,0 +1,70 @@
+﻿<style type="text/css">
+    .modal-xl {
+            width: 80% !important;
+            margin-left: 12%
+        }
+</style>
+<div id="fundApprovalSetup">
+    <div class="modal-header">
+        <div class="modal-title">Expiry Details</div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="col-md-1">
+            <a class="export-excel" style="cursor:pointer;padding:30px" title="export to excel" ng-click="ExpiryReportExportToExcel()"></a>
+        </div>
+        <div class="row" ng-init="GetExpiryReports()">
+            <div class="col-sm-12">
+                <table id="expiryList"></table>
+                <div id="expiryPager"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+    </div>
+
+</div>
+<script type="text/javascript">
+    function getExpiryDetails(url) {
+        jQuery("#expiryList").jqGrid({
+            url: url,
+            datatype: "json",
+            colNames: ['id', 'EMP No', 'Employee Name', 'Mobile No', 'Passport No', 'Passport Expiry', 'QID', 'QID Expiry',
+                'Visa', 'Visa Expiry', 'Health Card', 'Health Card Expiry'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'EmployeeCode', index: 'EmployeeCode', width: 90, search: false, align: 'center' },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 150, search: false,align:'center' },
+                { name: 'MobileNo', index: 'MobileNo', width: 170, search: false ,align:'center'},
+                { name: 'PassportNo', index: 'PassportNo', width: 170, search: false ,align:'center'},
+                { name: 'PassportExpiryDateVw', index: 'PassportExpiryDateVw', width: 110, search: false,align:'center' },
+                { name: 'QID', index: 'QID', width: 120, search: false, align: 'center' },
+                { name: 'QIDExpiryDateVw', index: 'QIDExpiryDateVw', width: 110, search: false,align:'center' },
+                { name: 'VisaNo', index: 'VisaNo', width: 170, search: false ,align:'center'},
+                { name: 'VisaExpiryDateVw', index: 'VisaExpiryDateVw', width: 110, search: false,align:'center' },
+                { name: 'HealthCardNo', index: 'HealthCardNo', width: 120, search: false, align: 'center' },
+                { name: 'HealthCardExpiryVw', index: 'HealthCardExpiryVw', width: 110, search: false,align:'center' },
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#expiryPager',
+            sortname: 'EmployeeCode',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: $(window).width() - 370,
+            rownumbers: true,
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            caption: "Document Expiry Reports"
+
+        });
+        jQuery("#expiryList").jqGrid('navGrid', "#expiryPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#expiryList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+</script>

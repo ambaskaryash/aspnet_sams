@@ -1,0 +1,63 @@
+﻿
+<style type="text/css">
+    .modal-md {
+        width: 40% !important;
+    }
+</style>
+<div id="fundApprovalSetup">
+    <div class="modal-header">
+        <div class="modal-title">Leave Type Setup </div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="content-panel light">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Leave Type Code<span class="required-field">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control validator" ng-model="BusinessModel.PolicyCode" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Name<span class="required-field">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control validator" ng-model="BusinessModel.Description" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Allocated Leave<span class="required-field">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control validator" ng-model="BusinessModel.LeaveDays" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-success" ng-click="Save()">Save</button>
+        </div>
+    </div>
+
+</div>
+
+
+

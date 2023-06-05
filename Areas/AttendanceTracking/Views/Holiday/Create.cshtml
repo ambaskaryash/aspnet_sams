@@ -1,0 +1,64 @@
+﻿
+<style type="text/css">
+    .modal-md {
+        width: 40% !important;
+    }
+</style>
+<div id="fundApprovalSetup">
+    <div class="modal-header">
+        <div class="modal-title">Holiday Setup </div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="content-panel light">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Name<span class="required-field">*</span></label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control validator" ng-model="BusinessModel.Name" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Holiday Date<span class="required-field">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" angdatepicker class="form-control validator" ng-model="BusinessModel.HolidayDateStr"  style="float:left;margin-right:10px;width:85%" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Full Day/Half Day<span class="required-field">*</span></label>
+                        <div class="col-sm-8">
+                            <select class="form-control validator" ng-model="BusinessModel.TypeId" ng-options="c.Id as c.Name for c in HolidayTypeList" required>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-success" ng-click="Save()">Save</button>
+        </div>
+    </div>
+
+</div>
+
+
+

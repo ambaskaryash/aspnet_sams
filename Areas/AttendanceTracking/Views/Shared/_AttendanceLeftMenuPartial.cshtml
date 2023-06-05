@@ -1,0 +1,202 @@
+﻿@using Webclient.Helpers;
+
+
+@if (Request.IsAuthenticated)
+{
+	<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+		<div class="navbar-header">
+			<ul class="nav navbar-nav flex-row">
+				<li class="nav-item mr-auto">
+					<a class="navbar-brand" href="#">
+						<h2 style="color:white" class="brand-text mb-0"><span>EMS - </span>@User.Identity.Name</h2>
+					</a>
+				</li>
+				<li class="nav-item nav-toggle">
+					<a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+						<i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i>
+						<i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="shadow-bottom"></div>
+
+		<div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                @if (CommonUtility.IsSuperAdmin)
+                {
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/CompanySettings/Index">
+                            <i class="feather icon-settings"></i>
+                            <span class="menu-title">Company Setup</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/UserSettings/UserList">
+                            <i class="feather icon-list"></i>
+                            <span class="menu-title">User List</span>
+                        </a>
+                    </li>
+
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/MasterDataSetup/Index">
+                            <i class="feather icon-settings"></i>
+                            <span class="menu-title">Master Data Setup</span>
+                        </a>
+                    </li>
+                }
+                else if (CommonUtility.IsAdmin)
+                {
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/Dashboard/Index">
+                            <i class="fa fa-dashboard"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/EmployeeLocationMap/LiveTracking">
+                            <i class="feather icon-map"></i>
+                            <span class="menu-title">Employee Location Map</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="#"><i class="feather icon-book"></i><span class="menu-title">Employee Management</span></a>
+                        <ul class="menu-content" style="margin-left:10px;">
+                            <li>
+                                <a href="/AttendanceTracking/Employee/Index">
+                                    <i class="feather icon-circle">
+                                    </i><span class="menu-item">Employee Create/List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceTracking/Employee/BulkUpload">
+                                    <i class="feather icon-circle"></i>
+                                    <span class="menu-item">Bulk Upload</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceTracking/MasterDataSetup/GenerateQRCode">
+                                    <i class="feather icon-settings"></i>
+                                    <span class="menu-title">Generate QR Code</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/UserSettings/LoginHistory">
+                            <i class="feather icon-smartphone"></i>
+                            <span class="menu-title">Registered Device</span>
+                        </a>
+                    </li>
+                    <li class=" nav-item">
+                        <a href="#"><i class="feather icon-archive"></i><span class="menu-title">Leave Management</span></a>
+                        <ul class="menu-content" style="margin-left:10px;">
+                            <li class=" nav-item">
+                                <a href="/AttendanceTracking/LeavePolicy/Index">
+                                    <i class="feather icon-activity"></i>
+                                    <span class="menu-title">Leave Types</span>
+                                </a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="/AttendanceTracking/Holiday/Index">
+                                    <i class="feather icon-activity"></i>
+                                    <span class="menu-title">Holidays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceTracking/Leave/Index">
+                                    <i class="feather icon-circle">
+                                    </i><span class="menu-item">Leave List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceTracking/Leave/MyPendingLeaves">
+                                    <i class="feather icon-circle"></i>
+                                    <span class="menu-item">Pending Leave</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/Task/Index">
+                            <i class="feather icon-list"></i>
+                            <span class="menu-title">Task Management</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/NoticeBoard/Index">
+                            <i class="feather icon-award"></i>
+                            <span class="menu-title">Notice Posting</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/Department/Index">
+                            <i class="feather icon-settings"></i>
+                            <span class="menu-title">Department Setup</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/Designation/Index">
+                            <i class="feather icon-settings"></i>
+                            <span class="menu-title">Designation Setup</span>
+                        </a>
+                    </li>
+
+                    <li class=" nav-item">
+                        <a href="#"><i class="feather icon-cloud"></i><span class="menu-title">Reports</span></a>
+                        <ul class="menu-content" style="margin-left:10px;">
+                            <li>
+                                <a href="/AttendanceTracking/AttendanceReport/AllUserAttendanceReports">
+                                    <i class="feather icon-circle"></i>
+                                    <span class="menu-item">Attendance Details</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceTracking/AttendanceReport/MonthlyAttendanceReports">
+                                    <i class="feather icon-circle"></i>
+                                    <span class="menu-item">Monthly Attendance</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                }
+                else if (CommonUtility.IsEmployee)
+                {
+                    <li class=" nav-item">
+                        <a href="/AttendanceTracking/EmployeeDashboard/Index">
+                            <i class="fa fa-dashboard"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                }
+                
+                <li class=" nav-item">
+                    <a href="/AttendanceTracking/ChangePassword/ChangePassword">
+                        <i class="fa fa-mail-forward"></i>
+                        <span class="menu-title">Change Password</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="/Account/LogOff">
+                        <i class="fa fa-power-off"></i>
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </li>
+            </ul>
+		</div>
+	</div>
+}
+
+
+

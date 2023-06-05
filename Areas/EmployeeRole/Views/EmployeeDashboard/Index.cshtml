@@ -1,0 +1,115 @@
+﻿@{
+    Layout = "~/Areas/EmployeeRole/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="main-area" ng-controller="empDashboardController">
+    <h4>Employee Dashboard</h4>
+    <br />
+
+    <div class="row" ng-init="GetTodayAttendanceFeed()">
+
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa fa-group"></i>
+                <span class="counter">{{TodayAttendance.StatusCount.TotalEmployee}}</span>
+                <p>Total Employee</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box colored">
+                <i class="fa fa-thumbs-o-up"></i>
+                <span class="counter">{{TodayAttendance.StatusCount.TotalCheckIn}}</span>
+                <p>Total Punch-In</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa fa-thumbs-o-down"></i>
+                <span class="counter">{{TodayAttendance.StatusCount.TotalCheckOut}}</span>
+                <p>Total Punch-Out</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa  fa-user"></i>
+                <span class="counter">{{TodayAttendance.StatusCount.TotalNotAttend}}</span>
+                <p>Total Absent</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:50px"></div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" style="height:430px;overflow-y:auto">
+                <div class="card-content" ng-init="LoadNoticeBoard()">
+                    <div class="card-body">
+                        <h4 class="card-title">Notices</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" ng-repeat="x in NoticeList">
+                            <span ng-if="x.NoticeId%5==1" class="badge badge-pill bg-light float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==2" class="badge badge-pill bg-info float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==3" class="badge badge-pill bg-success float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==4" class="badge badge-pill bg-warning float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==0" class="badge badge-pill bg-danger float-right">{{x.PostingDateVw}}</span>
+                            {{x.Details}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/Dashboard/GetAttendanceFeedGrid',
+            datatype: "json",
+            colNames: ['id','', 'Name', 'In Time','Out Time','Completed Time'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'ImageFileName', index: 'ImageFileName', width: 60, search: false, formatter: imageviewFomatter, align: 'center' },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 130, align: 'center', search: true },
+                { name: 'CheckInTimeVw', index: 'CheckInTimeVw', width: 80, align: 'center', search: false },
+                { name: 'CheckOutTimeVw', index: 'CheckOutTimeVw', width: 80, align: 'center', search: false },
+                { name: 'OfficeStayHour', index: 'OfficeStayHour', width: 80, align: 'center', search: false },
+            ],
+            rowNum: 500,
+            pager: '#gridPager',
+            sortname: 'CheckInTimeVw',
+            sortorder: "desc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '320',
+            width: '100%',
+            viewrecords: true,
+            rownumbers: true,
+            emptyrecords: "No records to view",
+            caption: "Today attendance feed"
+
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    function imageviewFomatter(cellvalue, options, rowObject) {
+        if (cellvalue != '')
+            return "<img src=" + rowObject.ImagePath + " class='rounded' style='height:50px;'/>";
+        else
+            return "<img src='/Content/images/avater.png' style='height:50px;' />";
+    }
+
+</script>

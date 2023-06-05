@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dashboard.css" rel="stylesheet" />
+<section id="main-area" ng-controller="attendanceDashboardController">
+    <h4>Dashboard</h4>
+    <br />
+
+    <div class="row" ng-init="GetTodayAttendanceFeed()">
+        <div class="col-md-4">
+            <div class="dbox dbox--color-3">
+                <div class="dbox__icon">
+                    <i class="feather icon-users"></i>
+                </div>
+                <div class="dbox__body">
+                    <span class="dbox__count">{{TodayAttendance.StatusCount.TotalEmployee}}</span>
+                    <span class="dbox__title">Total Employee</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="dbox dbox--color-2">
+                <div class="dbox__icon">
+                    <i class="feather icon-check-square"></i>
+                </div>
+                <div class="dbox__body">
+                    <span class="dbox__count">{{TodayAttendance.StatusCount.TotalCheckIn}}</span>
+                    <span class="dbox__title">Punch In</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="dbox dbox--color-1">
+                <div class="dbox__icon">
+                    <i class="feather icon-power"></i>
+                </div>
+                <div class="dbox__body">
+                    <span class="dbox__count">{{TodayAttendance.StatusCount.TotalCheckOut}}</span>
+                    <span class="dbox__title">Punch Out</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <h4>Employee Location On Map</h4>
+    <div class="row" id="divWrapper" ng-controller="employeeLocationMapController">
+        <div class="col-12">
+            <div id="map" ng-init="loadLocationMap()"></div>
+        </div>
+    </div>
+    <div style="margin-bottom:50px"></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+    <div style="margin-top:50px"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="height:285px;overflow-y:auto">
+                <div class="card-content" ng-init="LoadNoticeBoard()">
+                    <div class="card-body">
+                        <h4 class="card-title">Notices</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" ng-repeat="x in NoticeList">
+                            <span ng-if="x.NoticeId%5==1" class="badge badge-pill bg-light float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==2" class="badge badge-pill bg-info float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==3" class="badge badge-pill bg-success float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==4" class="badge badge-pill bg-warning float-right">{{x.PostingDateVw}}</span>
+                            <span ng-if="x.NoticeId%5==0" class="badge badge-pill bg-danger float-right">{{x.PostingDateVw}}</span>
+                            {{x.Details}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" style="height:285px;overflow-y:auto">
+                <div class="card-content" ng-init="LoadDocExpiryCount()">
+                    <div class="card-body">
+                        <h4 class="card-title">Expiry Details</h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" ng-repeat="x in DocExpiryList">
+                            <span ng-if="x.Name=='Expired'" class="badge badge-pill bg-danger float-right" style="cursor:pointer;text-decoration:underline" ng-click="HealthCardExpired(x.Name)">{{x.HealthCard}}</span>
+                            <span ng-if="x.Name=='Expiring in 90 days'" class="badge badge-pill bg-info float-right" style="cursor:pointer;text-decoration:underline" ng-click="HealthCardExpired(x.Name)">{{x.HealthCard}}</span>
+                            <span ng-if="x.Name=='Expiring in 60 days'" class="badge badge-pill bg-success float-right" style="cursor:pointer;text-decoration:underline" ng-click="HealthCardExpired(x.Name)">{{x.HealthCard}}</span>
+                            <span ng-if="x.Name=='Expiring in 30 days'" class="badge badge-pill bg-warning float-right" style="cursor:pointer;text-decoration:underline" ng-click="HealthCardExpired(x.Name)">{{x.HealthCard}}</span>
+                            {{x.Name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/Dashboard/GetAttendanceFeedGrid',
+            datatype: "json",
+            colNames: ['id','', 'EMP ID', 'Name', 'In Time', 'Location', 'Out Time', 'Location', 'Device','Completed Time'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'ImageFileName', index: 'ImageFileName', width: 60, search: false, formatter: imageviewFomatter, align: 'center' },
+                { name: 'EmployeeCode', index: 'EmployeeCode', width: 90, search: false, align: 'center'},
+                { name: 'EmployeeName', index: 'EmployeeName', width: 180, align: 'center', search: true },
+                { name: 'CheckInTimeVw', index: 'CheckInTimeVw', width: 90, align: 'center', search: false },
+                { name: 'LogInLocation', index: 'LogInLocation', width: 150, align: 'center' },
+                { name: 'CheckOutTimeVw', index: 'CheckOutTimeVw', width: 90, align: 'center', search: false },
+                { name: 'LogOutLocation', index: 'LogOutLocation', width: 150, align: 'center' },
+                { name: 'PunchInDeviceName', index: 'PunchInDeviceName', width: 150, align: 'center' },
+                { name: 'OfficeStayHour', index: 'OfficeStayHour', width: 110, align: 'center', search: false },
+            ],
+            rowNum: 500,
+            //rowList: [10,20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'CheckInTimeVw',
+            sortorder: "desc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '320',
+            width: $(window).width()-330,
+            viewrecords: true,
+            rownumbers: true,
+            emptyrecords: "No records to view",
+            caption: "Today attendance feed"
+
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    function imageviewFomatter(cellvalue, options, rowObject) {
+        if (cellvalue != '')
+            return "<img src=" + rowObject.ImagePath + " class='rounded' style='height:50px;'/>";
+        else
+            return "<img src='/Content/images/avater.png' style='height:50px;' />";
+    }
+
+</script>

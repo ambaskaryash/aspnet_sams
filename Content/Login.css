@@ -1,0 +1,264 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+@import url(../Views/Shared/open-sans.css);
+
+body {
+    background-image: url("images/loginBackground.png");
+    background-color: #fff;
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    margin: auto 0;
+    padding: 0;
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 1.3rem;
+    line-height: 160%;
+    
+}
+
+
+/*input[type="text"]:focus {
+    border-color: #646464;
+    background-color: #e8eef4;
+}
+
+textarea:focus {
+    border-color: #646464;
+    background-color: #e8eef4;
+}
+
+
+input[type="password"]:focus {
+    border-color: #646464;
+    background-color: #e8eef4;
+}*/
+
+
+/* MISC  
+----------------------------------------------------------*/
+.clear {
+    clear: both;
+}
+
+
+
+
+
+#logindisplay a:link {
+    color: #9FC54E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#logindisplay a:visited {
+    color: #9FC54E;
+    text-decoration: none;
+}
+
+#logindisplay a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label,
+.editor-label,
+.display-field,
+.editor-field {
+    margin: 0.5em 0 0.5em 10px;
+}
+
+.code-field {
+    margin: 0.5em 0 0.5em 10px;
+    width: 10em;
+}
+
+
+
+.text-box.multi-line {
+    height: 6.5em;
+    width: 60em;
+}
+
+
+
+
+.clr {
+    clear: both;
+    height: 0;
+}
+
+
+/*********Custom CSS By Zahid*****/
+.login-panel {
+    margin: 0 auto 20px;
+    max-width: 525px;
+    padding: 20px;
+}
+
+h1.login-title {
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+    margin: 50px 0 0px 0;
+    text-align: center;
+}
+
+.error {
+    color: Red;
+    padding: 20px 0;
+}
+
+.login-wall {
+    margin: 65px 0px 0px 0px;
+    background-color: #fff;
+    max-width: 486px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -ms-border-radius: 15px;
+    border-radius: 15px;
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.148438);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.148438);
+    -ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.148438);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.148438);
+   
+}
+
+.login-form {
+    text-align: left;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+}
+
+form label {
+    color: #444;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    height: 16px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 10px 6px;
+    width: 90%;
+    background-color:#EEE!important;
+}
+
+.login-box-footer {
+    display: table;
+    height: 100%;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.forgot-password {
+    /*width: 40%;*/
+}
+
+.remember-me {
+    text-align: right;
+    /*width: 22%;*/
+}
+
+.login-box-footer label {
+    color: #999999;
+    display: inline;
+    float: none;
+    font-weight: normal;
+    padding-left: 5px;
+}
+
+.btn-success {
+    max-width:200px;
+}
+
+
+/*Custom Css by amin sharif*/
+
+
+.login_username {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 30px;
+    text-align: center;
+    font-family: inherit;
+    /*font-weight: bold;*/
+    font-size: large;
+    background: #FEFEFE;
+    height:unset;
+}
+.login_logo{
+
+}
+.login_button{
+   text-align: center;
+    background-color: #000000;
+    border: none;
+    FONT-FAMILY: sans-serif;
+    color: white;
+    padding: 12px 25px 12px 25px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    margin:0px 0px 30px 0px;
+}
+.login_text{
+    text-align:center;
+}
+login_footer{
+    margin:15px 0px 15px 0px;
+    text-align:center;
+}
+
+.header_logo{
+    margin:10px 0px 30px 0px;
+}
+.login_text{
+    color:#CDCDCD;
+    margin:30px 0px 0px 0px;
+}
+

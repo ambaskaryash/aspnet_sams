@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Task";
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-init="LoadMasterData()" ng-controller="taskController">
+    <div class="row">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="calander-tab" ng-class="{ active : ActiveTab == 1 }" data-toggle="tab" ng-click="ActiveTab=1" role="tab" aria-controls="calander" aria-selected="true">Calender View</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="list-tab" ng-click="select()" ng-class="{ active : ActiveTab == 2 }" data-toggle="tab" role="tab" aria-controls="list" aria-selected="false">List View</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" role="tabpanel" >
+        <div class="col-md-offset-2 col-md-2" style="padding-left:0px">
+            <button type="button" class="btn btn-primary" style="margin-bottom:20px;" ng-click="AddOrEdit(null)">New</button>
+        </div>
+            <div class="col-sm-3" ng-if="ActiveTab == 2">
+                <select class="form-control rSetup" ng-model="filter.StatusId" ng-change="GetAllDataWithFilter(filter.StatusId,null)" ng-options="d.Id as d.Name for d in ddlModel.StatusList">
+                    <option value="">-- Select for Filter by Status --</option>
+                </select>
+            </div>
+            <div class="col-sm-3" role="tabpanel" ng-if="ActiveTab == 2">
+                <select class="form-control rSetup" ng-model="filter.DateTypeId" ng-change="GetAllDataWithFilter(null,filter.DateTypeId)" ng-options="d.Id as d.Name for d in ddlModel.DateFilterTypeList">
+                    <option value="">-- Select for Filter by Date --</option>
+                </select>
+            </div>
+        <div class="col-sm-3" ng-if="ActiveTab == 2">
+            <select class="form-control rSetup"  role="tabpanel" ng-model="filter.TypeId" ng-change="GetAllTaskTypeFilter(filter.TypeId)" ng-options="d.Id as d.Name for d in ddlModel.TaskType">
+                <option value="">-- Select for Filter by TaskType --</option>
+            </select>
+        </div>
+        @*<div class="col-sm-3">
+                <button type="button" class="btn btn-success" style="margin-top:0px;margin-bottom:5px;" ng-click="GetAllReportList(MonthId,YearId)">Search</button>
+            </div>*@
+
+    </div>
+    <div class="row" style="margin-bottom:30px">
+        <div ng-if="ActiveTab == 2" role="tabpanel" class="col-sm-12" style="padding-left: 0px;">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+        <div ng-if="ActiveTab == 1" role="tabpanel" id="taskCalendar" ng-init="loadTaskCalendar()" style='width: 98%; min-height: 410px;margin-top: 15px;'></div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    getAllData();
+    //});
+
+    function getAllData(data) {
+        jQuery("#gridList").jqGrid({
+            //url: '/AttendanceTracking/Task/GetAll',
+            //datatype: "json",
+            data: data,
+            datatype: "local",
+            colNames: ['Id', 'Task No', 'Title', 'Status', 'TaskTyp','Priority','Create Date','Due Date',''],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'TaskNo', index: 'TaskNo', width: 120, search: true },
+                { name: 'Title', index: 'Title', width: 120, search: true },
+                { name: 'StatusName', index: 'StatusName', width: 120, search: true },
+                { name: 'TaskTypeName', index: 'TaskTypeName', width: 120, search: true },
+                { name: 'PriorityName', index: 'PriorityName', width: 120, search: true },
+                { name: 'CreatedAtVw', index: 'CreatedAtVw', width: 120, search: false  },
+                { name: 'DueDateStr', index: 'DueDateStr', width: 120, search: false },
+                { name: 'Edit', index: 'Edit', width: 60, search: false, sortable: false, formatter: editFomatter },
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'TaskNo',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: '100%',
+            rownumbers: true,
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            caption: "All Task"
+            
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    var editData = function (id) {
+        angular.element('#divWrapper').scope().AddOrEdit(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    var deleteData = function (id) {
+        angular.element('#divWrapper').scope().deleteData(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    function editFomatter(cellvalue, options, rowObject) {
+        return "<a style='' class='pointer' onclick=\"editData('" + rowObject.Id + "')\"><i class='feather icon-edit'></i></a>"+
+            "<a style='margin-right:5px' class='pointer' onclick=\"deleteData('" + rowObject.Id + "')\"><i class='feather icon-trash'></i></a>";
+    }
+
+</script>

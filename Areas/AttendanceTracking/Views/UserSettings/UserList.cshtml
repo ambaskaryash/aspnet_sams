@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+
+    .ui-jqgrid .ui-jqgrid-bdiv {
+        overflow-x: hidden !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="portalUserController">
+    <h4>Application Users(<span style="color:orange">Employee can login only from mobile app</span>)</h4>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/UserSettings/GetUserList',
+            datatype: "json",
+            colNames: ['id', '', '','Full Name', 'Login ID', 'Email', 'Contact No', 'Role', 'Status','Company'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'Edit', index: 'Edit', width: 30, search: false, sortable: false, formatter: editFomatter },
+                { name: 'ResetPass', index: 'ResetPass', width: 110, search: false, sortable: false, formatter: resetPassFomatter },
+                { name: 'FullName', index: 'FullName', width: 180, search: true },
+                { name: 'LoginID', index: 'LoginID', width: 90 },
+                { name: 'Email', index: 'Email', width: 150 },
+                { name: 'ContactNo', index: 'ContactNo', width: 90 },
+                { name: 'RoleName', index: 'RoleName', width: 110 },
+                { name: 'StatusName', index: 'StatusName', width: 80 },
+                { name: 'CompanyName', index: 'CompanyName', width: 150 },
+                
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'CompanyName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: $(window).width() - 350,
+            viewrecords: true,
+            rownumbers: true,
+            shrinkToFit: true,
+            emptyrecords: "No records to view",
+            rownumbers: true,
+
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    var editData = function (id) {
+        angular.element('#divWrapper').scope().AddOrEdit(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    function editFomatter(cellvalue, options, rowObject) {
+      return "<a style='' class='pointer' onclick=\"editData('" + rowObject.Id + "')\"><i class='feather icon-edit'></i></a>";
+    }
+
+    var resetPassWindow = function (id) {
+        angular.element('#divWrapper').scope().ResetPassConfirm(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+
+    function resetPassFomatter(cellvalue, options, rowObject) {
+        return "<a style='' class='pointer' title='Reset Password' onclick=\"resetPassWindow('" + rowObject.Id + "')\"><i class='fa fa-mail-forward'>Reset Password</i></a>";
+    }
+
+</script>

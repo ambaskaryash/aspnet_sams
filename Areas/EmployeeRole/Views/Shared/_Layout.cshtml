@@ -1,0 +1,19 @@
+﻿@using Webclient.Helpers;
+
+@{
+    ViewBag.Title = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Areas/EmployeeRole/Content/emStyle.css" rel="stylesheet" />
+@Html.Partial("_EmployeeLeftMenuPartial")
+<div class="app-content content">
+    <div class="content-wrapper" style="margin-top:0%">
+        <div class="content-body">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@Url.Script("~/Areas/EmployeeRole/scripts/empdashboardController.js")
+

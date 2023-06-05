@@ -1,0 +1,436 @@
+﻿<style type="text/css">
+    .empImage {
+        width: 125px;
+        height: 115px;
+        margin-top: 2px;
+        top: 0;
+        left: 0;
+        border: 1px solid #ddd;
+        z-index: 1;
+    }
+
+    .profileInput {
+        cursor: pointer;
+        height: 115px;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 4px;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .fileUpload-div-profile {
+        position: absolute;
+        top: 51px;
+        margin-left: 100px;
+        overflow: hidden;
+    }
+
+    span.upload-text {
+        font-size: 12px;
+        color: #0092d0;
+        cursor: pointer;
+        text-decoration: underline;
+        margin-left: 30px
+    }
+
+    .modal-xl {
+        width: 75% !important;
+        margin-left: 15%
+    }
+</style>
+<div id="employeeDetails">
+    <div class="modal-header">
+        <div class="modal-title">
+           Employee Create/Update 
+        </div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+      
+        <div class="col-sm-12" style="text-align:right;margin-bottom:10px">
+            <button type="button" class="btn btn-success" ng-click="Save()">Save</button>
+        </div>
+        <div class="content-panel light" style="margin:15px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">EMP.No<span class="required-field">*</span></label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="Employee.EmployeeCode" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">NAME<span class="required-field">*</span></label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="Employee.EmployeeName" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">LOGIN ID<span class="required-field">*</span></label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="Employee.LoginID" maxlength="8" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row" ng-if="Employee.Id==0">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">PASSWORD<span class="required-field">*</span></label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="Employee.Password" maxlength="8" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <img ng-if="Employee.ImageFileName == null || Employee.ImageFileName == ''" src="~/Content/images/avater.png" class="empImage" />
+                    <img ng-if="Employee.ImageFileName != null && Employee.ImageFileName != ''" src="{{Employee.ImagePath}}" class="empImage" />
+
+                    <div class="fileUpload-div-profile">
+                        <span class="upload-text" ng-if="Employee.ImageFileName == null">Upload</span>
+                        <span class="upload-text" ng-if="Employee.ImageFileName != null">Change</span>
+                        <input type="file" id="empImageData" class="upload profileInput" onchange="angular.element(this).scope().uploadEmpImage()" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" ng-class="{ active : ActiveTab == 1 }" data-toggle="tab" ng-click="ActiveTab=1" role="tab" aria-controls="home" aria-selected="true">PERSONAL DETAILS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" ng-class="{ active : ActiveTab == 2 }" data-toggle="tab" ng-click="ActiveTab=2" role="tab" aria-controls="profile" aria-selected="false">SALARY DETAILS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" ng-class="{ active : ActiveTab == 3 }" data-toggle="tab" ng-click="ActiveTab=3" role="tab" aria-controls="contact" aria-selected="false">HEALTH CARD & INSURANCE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" ng-class="{ active : ActiveTab == 4 }" data-toggle="tab" ng-click="ActiveTab=4" role="tab" aria-controls="contact" aria-selected="false">OTHER DETAILS</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-if="ActiveTab == 1" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card-body">
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">EMPLOYEE STATUS<span class="required-field">*</span></label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control validator" ng-model="Employee.EmployeeStatusId" ng-options="c.Id as c.Name for c in Employee.EmployeeStatusList" required>
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">DESIGNATION<span class="required-field">*</span></label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control validator" ng-model="Employee.DesignationId" ng-options="c.Id as c.Name for c in Employee.DesignationList" required>
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">DEPARTMENT<span class="required-field">*</span></label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control validator" ng-model="Employee.DepartmentId" ng-options="c.Id as c.Name for c in Employee.DepartmentList" required>
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">EMAIL ID</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.EmailIDs" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">JOINING DATE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" angdatepicker class="form-control validator" ng-model="Employee.JoiningDateVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">NATIONALITY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.NationalityId" ng-options="c.Id as c.Name for c in Employee.NationalityList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">DATE OF BIRTH</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" angdatepicker class="form-control validator" ng-model="Employee.DateOfBirthVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">GENDER</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.GenderId" ng-options="c.Id as c.Name for c in Employee.GenderList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div ng-if="ActiveTab == 2" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card-body">
+
+
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">BASIC PAY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.BasicPay" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">HOUSE RENT</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.Housing" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">TRANSPORT COST</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.Transport" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">TELEPHONE BILL</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.Telephone" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">FOOD ALLOWANCE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.FoodAllowance" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">OTHER ALLOWANCES</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.OtherAllowances" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">BANK NAME</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.BankName" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">NET SALARY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" valid-number class="form-control validator" ng-model="Employee.NetSalary" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">BANK ACCOUNT</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.EmployeeAccount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">HEALTH CARD NO</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.HealthCardNo" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">HEALTH CARD EXPIRY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" angdatepicker ng-model="Employee.HealthCardExpiryVw" style="float:left;margin-right:10px;width:82%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">CONTACT NO</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.MobileNo" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">INSURANCE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.Insurance" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">INSURANCE EXPIRY DATE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" angdatepicker class="form-control validator" ng-model="Employee.InsuranceExpiryDateVw" style="float:left;margin-right:10px;width:82%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 4" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">MOTHER TONGUE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.MotherTongueId" ng-options="c.Id as c.Name for c in Employee.MotherTongueList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">MARITAL STATUS</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.MaritalStatusId" ng-options="c.Id as c.Name for c in Employee.MaritalStatusList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">RELIGION</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.ReligionId" ng-options="c.Id as c.Name for c in Employee.ReligionList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">PREVIOUS COMPANY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.PreviousCompany" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">COUNTRY</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <select class="form-control" ng-model="Employee.CountryId" ng-options="c.Id as c.Name for c in Employee.CountryList">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" style="float:left">GRADE</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.Grade" />
+                                        </div>
+                                        <label class="col-sm-2 control-label" style="float:left">REMARKS</label>
+                                        <div class="col-sm-3" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="Employee.Remarks" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" style="float:left">CAN SCAN QR CODE</label>
+                                        <div class="col-sm-2" style="float:left">
+                                            <label class="switch switch-primary">
+                                                <input type="checkbox" class="switch-input" ng-model="Employee.HasAccessQrCodeScan" />
+                                                <span data-off="No" data-on="Yes" class="switch-label"></span>
+                                                <span class="switch-handle"></span>
+                                            </label>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-default" ng-click="closeModal()">Close</button>
+        </div>
+    </div>
+
+</div>

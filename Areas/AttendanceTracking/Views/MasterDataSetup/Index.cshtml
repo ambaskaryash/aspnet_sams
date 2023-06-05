@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Master Data";
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="setupController">
+    <h4>Master Data Setup(<span style="color:orange">For lookup value selection in different entry form</span>)</h4>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <button type="button" class="btn btn-primary" style="margin-bottom:20px;" ng-click="AddMasterData(0)">New</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="setupDataList"></table>
+            <div id="setupDataPager"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllSetupData();
+    });
+
+    function getAllSetupData() {
+        jQuery("#setupDataList").jqGrid({
+            url: '/MasterDataSetup/GetAll',
+            datatype: "json",
+            colNames: ['id', 'Input Option Type', 'Name', 'Is Active',''],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'InputHelpTypeName', index: 'InputHelpTypeName', width: 180, search: false },
+                { name: 'Name', index: 'Name', width: 350 },
+                { name: 'StatusName', index: 'StatusName', width: 60, search: false },
+                { name: 'Edit', index: 'Edit', width: 60, search: false, sortable: false, formatter: editFomatter },
+            ],
+            rowNum: 10,
+            rowList: [10,20, 30, 40, 50],
+            pager: '#setupDataPager',
+            sortname: 'InputHelpTypeName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: '100%',
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            caption:"Master Data Setup",
+            beforeProcessing: function (data, status, xhr) {
+            },
+            grouping: true,
+            groupingView: {
+                groupField: ['InputHelpTypeName'],
+                groupColumnShow: [false],
+                groupText: ['<b>{0} - {1} Item(s)</b>']
+            }
+        });
+        jQuery("#setupDataList").jqGrid('navGrid', "#setupDataPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#setupDataList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+        $("#setupDataList").closest('.ui-jqgrid-bdiv').width($("#setupDataList").closest('.ui-jqgrid-bdiv').width() + 1);
+    };
+
+    var editData = function (id) {
+        angular.element('#divWrapper').scope().AddMasterData(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    var deleteData = function (id) {
+        angular.element('#divWrapper').scope().deleteMasterData(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+
+    function editFomatter(cellvalue, options, rowObject) {
+       return "<a style='' class='pointer' onclick='editData(" + rowObject.Id + ")'><i class='feather icon-edit'></i></a>" +
+            "<a style='' class='pointer' onclick='deleteData(" + rowObject.Id + ")'><i class='feather icon-trash'></i></a>";
+    }
+
+</script>

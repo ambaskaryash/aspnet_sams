@@ -1,0 +1,132 @@
+﻿<style type="text/css">
+    .modal-xl {
+        width: 80% !important;
+        margin-left: 12%
+    }
+
+    .form-panel-header {
+        padding: 10px 15px;
+        width: 100%;
+        background-color: #fff;
+        border-bottom: 2px solid #ececec;
+        color: #539fd0;
+        font-size: 18px;
+        text-transform: capitalize;
+        font-family: calibri;
+        font-weight: normal;
+    }
+</style>
+<div>
+    <div class="modal-header">
+        <div class="modal-title">Leave Details</div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+        <div class="row" style="float:right;margin-right:2%">
+            <div class="form-group">
+                <div class="row" ng-if="BusinessModel.CanApprove">
+                    <button type="button" class="btn btn-success" ng-click="ApproveLeave()">Approve</button>
+                    <button type="button" class="btn btn-warning" style="margin-left:10px" ng-click="RejectLeave()">Reject</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:5%">
+            <div class="col-sm-6">
+                <div class="content-panel light">
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" style="float:left">Request No</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" disabled class="form-control " ng-model="BusinessModel.RequestNo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" style="float:left">Employee Name</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" disabled class="form-control " ng-model="BusinessModel.EmployeeName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" style="float:left">From Date</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" disabled class="form-control " ng-model="BusinessModel.FromDateVw" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" style="float:left">To Date</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" disabled class="form-control " ng-model="BusinessModel.ToDateVw" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" style="float:left">Leave Days</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" disabled class="form-control " ng-model="BusinessModel.LeaveInDays" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div style="margin-top:5px" class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="float:left">Leave Type</label>
+                            <div class="col-sm-7" style="float:left">
+                                <input type="text" disabled class="form-control " ng-model="BusinessModel.LeaveType" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:5px" class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="float:left">Leave Reason</label>
+                            <div class="col-sm-7" style="float:left">
+                                <textarea type="text" disabled class="form-control " ng-model="BusinessModel.LeaveReason" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:5px" class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="float:left">Status</label>
+                            <div class="col-sm-7" style="float:left">
+                                <input type="text" disabled class="form-control " ng-model="BusinessModel.StatusName" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</div>
+
+
+

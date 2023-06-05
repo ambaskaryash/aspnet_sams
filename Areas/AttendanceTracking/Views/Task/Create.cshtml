@@ -1,0 +1,230 @@
+﻿
+<style type="text/css">
+    .file-name {
+        padding-right: 5px;
+        line-height: 15px;
+        color: #333;
+    }
+
+    .existing-file-name {
+        color: #0092D0;
+        text-decoration: underline;
+        padding-right: 5px;
+        cursor: pointer;
+        line-height: 15px;
+    }
+
+    .file-cross {
+        color: red;
+        cursor: pointer;
+    }
+
+    .fileUpload-div .upload-text {
+        background: url('../../../../Content/images/attachment-icon.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        display: block;
+    }
+
+    .fileUpload-div .attachment-icon {
+        background: url('../../../../Content/images/attachment-icon.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        display: block;
+        cursor: pointer;
+        color: #0092D0;
+    }
+    .modal-xl {
+        width: 75% !important;
+        margin-left: 15%
+    }
+</style>
+<div id="taskCreate">
+    <div class="modal-header">
+        <div class="modal-title">Create Task</div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="content-panel light">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Title<span class="required-field">*</span></label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="BusinessModel.Title" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Description</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <textarea class="form-control" ng-model="BusinessModel.Description" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Status</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <select class="form-control" ng-model="BusinessModel.StatusId" ng-options="d.Id as d.Name for d in BusinessModel.StatusList">
+                                        <option value="">Select...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Task Type</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <select class="form-control" ng-model="BusinessModel.TaskTypeId" ng-options="d.Id as d.Name for d in BusinessModel.TaskType">
+                                        <option value="">Select...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row" ng-if="BusinessModel.TaskTypeId==2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Contract Number<span class="required-field"></span></label>
+                                <div class="col-sm-7" style="float:left">
+                                    <input type="text" class="form-control validator" ng-model="BusinessModel.ContractNumber" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row" ng-if="BusinessModel.TaskTypeId==2">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Address<span class="required-field"></span></label>
+                                <div class="col-sm-7" style="float:left">
+                                    @*<input type="text" class="form-control validator" ng-model="BusinessModel.ContractNumber" required />*@
+                                    <input vs-google-autocomplete 
+                                           ng-model="address.name"
+                                           vs-place="address.place"
+                                           vs-place-id="address.components.placeId"
+                                           vs-street-number="address.components.streetNumber"
+                                           vs-street="address.components.street"
+                                           vs-city="address.components.city"
+                                           vs-state="address.components.state"
+                                           vs-country-short="address.components.countryCode"
+                                           vs-country="address.components.country"
+                                           vs-post-code="address.components.postCode"
+                                           vs-district="address.components.district"
+                                           vs-latitude="address.components.location.lat"
+                                           vs-longitude="address.components.location.long"
+                                           type="text"
+                                           name="address"
+                                           id="address"
+                                           class="form-control"
+                                           placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+                    @*<div style="margin-top:5px" class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" style="float:left">Assigned To</label>
+                    <div class="col-sm-7" style="float:left">
+                        <select class="form-control" ng-model="BusinessModel.AssignedTold" ng-options="d.value as d.label for d in BusinessModel.AssignedList">
+                            <option value="">Select...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Assigned To</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <div ng-dropdown-multiselect="" options="BusinessModel.MultiAssignedList" selected-model="SelectedEmployee" checkboxes="true" extra-settings="setting1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Priority</label>
+                                <div class="col-sm-7" style="float:left">
+                                    <select class="form-control" ng-model="BusinessModel.PriorityId" ng-options="d.Id as d.Name for d in BusinessModel.PriorityList">
+                                        <option value="">Select...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-sm-12">
+                        <div style="margin-top:5px" class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" style="float:left">Due Date</label>
+                                    <div class="col-sm-7" style="float:left">
+                                        <input type="text" angdatepicker class="form-control" ng-model="BusinessModel.DueDateStr" style="float:left;margin-right:10px;width:88%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:5px" class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" style="float:left">Attachments:</label>
+                                    <div class="col-sm-8" style="float:right">
+                                        <div class="fileUpload-div">
+                                            <label for="files" class="attachment-icon"></label>
+                                            <input id="files" type="file" style="visibility:hidden;" class="upload" onchange="angular.element(this).scope().taskAttachement(this)" />
+                                        </div>
+                                        <div style="float:left">
+                                            <div ng-repeat="doc in BusinessModel.TaskDocumentList" ng-show="!doc.IsDeleted">
+                                                <div ng-show="doc.BlobName == null" style="margin-bottom:7px;">
+                                                    <span class="file-name">{{doc.FileName}}</span>
+                                                    <span class="file-cross" ng-click="DeleteAttachedDoc(BusinessModel.TaskDocumentList,$index)">x</span>
+                                                </div>
+
+                                                <div ng-show="doc.BlobName != null" style="margin-bottom:7px;">
+                                                    <span class="existing-file-name" ng-click="AzureDocumentDownload(doc.FullPath)">
+                                                        {{doc.FileName}}
+                                                    </span>
+                                                    <span class="file-cross" ng-click="DeleteUplodedDoc(doc,$index)">x</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-success" ng-click="Save(BusinessModel)">Save</button>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+
+}
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+    .ui-jqgrid .ui-jqgrid-bdiv {
+            overflow-x: hidden !important;
+        }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="departmentController">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <button type="button" class="btn btn-primary" style="margin-bottom: 20px;" ng-click="AddOrEdit(0)">New</button>
+        </div>
+    </div>
+    
+ 
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+   
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/Department/GetAll',
+            datatype: "json",
+            colNames: ['id', 'Department Code', 'Department Name',''],
+            colModel: [
+                { name: 'id', index: 'id', hidden: true, key: true },
+                { name: 'Code', index: 'Code', width: 150, search: true },
+                { name: 'DepartmentName', index: 'DepartmentName', width: 280 },
+                { name: 'Edit', index: 'Edit', width: 60, search: false, sortable: false, formatter: editFomatter },
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'Id',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: '100%',
+            viewrecords: true,
+            emptyrecords: "No records to view",
+            caption: "Department List",
+            rownumbers: true
+            
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    var editData = function (id) {
+        angular.element('#divWrapper').scope().AddOrEdit(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    var deleteData = function (id) {
+        angular.element('#divWrapper').scope().deleteData(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+    function editFomatter(cellvalue, options, rowObject) {
+         return "<a style='' class='pointer' onclick='editData(" + rowObject.Id + ")'><i class='feather icon-edit'></i></a>" +
+            "<a style='' class='pointer' onclick='deleteData(" + rowObject.Id + ")'><i class='feather icon-trash'></i></a>";
+    }
+
+</script>

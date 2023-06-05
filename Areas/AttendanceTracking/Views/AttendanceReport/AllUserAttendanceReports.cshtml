@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    .tableHeader > td, .tableRow > td {
+        width: 120px;
+    }
+
+    .label {
+        text-transform: none !important;
+    }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-init="GetInitTransactionDataForAll()" ng-controller="attendanceReportController">
+   
+    <div class="row">
+        <div class="col-sm-3">
+            <select class="form-control rSetup" ng-model="MonthId" ng-options="c.Id as c.Name for c in MonthList"></select>
+        </div>
+        <div class="col-sm-3">
+            
+            <select class="form-control rSetup" ng-model="YearId" ng-options="c for c in YearList"></select>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-success" style="margin-top:0px;margin-bottom:5px;" ng-click="GetAllReportList(MonthId,YearId)">Search</button>
+        </div>
+        <div class="col-sm-3">
+            <a class="export-excel" style="cursor:pointer;float:right" title="export to excel" ng-click="AllReportExportToExcel(MonthId,YearId)"></a>
+        </div>
+    </div>
+    <div class="row" style="margin-top:2%">
+        <div class="col-sm-12">
+            <table id="allUserGridList"></table>
+            <div id="allUserGridPager"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function LoadAllAttendanceData(data) {
+        jQuery("#allUserGridList").jqGrid({
+            data: data,
+            datatype: "local",
+            colNames: ['Id', 'Employee Name', 'Department', 'Designation', 'Punch In Date', 'Punch In Time', 'Punch In Location',
+                'Punch Out Date', 'Punch out Time', 'Punch Out Location', 'Office Hours', 'Completed Hours', 'Over Time', 'Device Name', 'Device Brand', 'Model'],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 150, search: true },
+                { name: 'DepartmentName', index: 'DepartmentName', width: 130, search: true },
+                { name: 'DesignationName', index: 'DesignationName', width: 130, search: true },
+                { name: 'LogInDate', index: 'LogInDate', width: 90, search: true,align:'center' },
+                { name: 'LogInTime', index: 'LogInTime', width: 70, search: true, align: 'center' },
+                { name: 'LogInLocation', index: 'LogInLocation', width: 190, search: true },
+                { name: 'LogOutDate', index: 'LogOutDate', width: 90, search: false, align: 'center' },
+                { name: 'LogOutTime', index: 'LogOutTime', width: 70, search: false, align: 'center'  },
+                { name: 'LogOutLocation', index: 'LogOutLocation', width: 190, search: false },
+                { name: 'OfficeHours', index: 'OfficeHours', width: 90, search: false, align: 'center' },
+                { name: 'CompletedHoursString', index: 'CompletedHoursString', width: 90, search: false, align: 'center'  },
+                { name: 'OverTimeString', index: 'OverTimeString', width: 90, search: false, align: 'center'  },
+                { name: 'DeviceName', index: 'DeviceName', width: 130 },
+                { name: 'DeviceBrand', index: 'DeviceBrand', width: 90 },
+                { name: 'DeviceModelName', index: 'DeviceModelName', width: 120 }
+            ],
+            rowNum: 20,
+            rowList: [20, 30, 40, 50],
+            pager: '#allUserGridPager',
+            sortname: 'EmployeeName',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: $(window).width() - 350,
+            viewrecords: true,
+            rownumbers: true,
+            shrinkToFit: false,
+            emptyrecords: "No records to view",
+            caption: "All user attendance details report"
+
+        });
+        jQuery("#allUserGridList").jqGrid('navGrid', "#allUserGridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#allUserGridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+</script>

@@ -1,0 +1,413 @@
+﻿
+<style type="text/css">
+    .file-name {
+        padding-right: 5px;
+        line-height: 15px;
+        color: #333;
+    }
+
+    .existing-file-name {
+        color: #0092D0;
+        text-decoration: underline;
+        padding-right: 5px;
+        cursor: pointer;
+        line-height: 15px;
+    }
+
+    .file-cross {
+        color: red;
+        cursor: pointer;
+    }
+
+    .fileUpload-div .upload-text {
+        background: url('../../../../Content/images/attachment-icon.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        display: block;
+    }
+
+    .fileUpload-div .attachment-icon {
+        background: url('../../../../Content/images/attachment-icon.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        display: block;
+        cursor: pointer;
+        color: #0092D0;
+    }
+
+    .modal-xl {
+        width: 75% !important;
+        margin-left: 15%
+    }
+</style>
+<div id="companyCreate">
+    <div class="modal-header">
+        <div class="modal-title">Company Setup </div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="alert alert-warning" role="alert" ng-if="HasMessage" style="margin-top:10px;margin-left:10px">
+                {{WarningMessage}}
+            </div>
+        </div>
+        <div class="col-sm-3" style="text-align: right;margin-top:15px">
+            <button type="button" class="btn btn-success" ng-click="Save()">Save</button>
+        </div>
+    </div>
+   
+    <div class="modal-body">
+        <div class="content-panel light">
+
+            <div class="row">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home-tab" ng-class="{ active : ActiveTab == 1 }" data-toggle="tab" ng-click="ActiveTab=1" role="tab" aria-controls="home" aria-selected="true">Basic Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" ng-class="{ active : ActiveTab == 2 }" data-toggle="tab" ng-click="ActiveTab=2" role="tab" aria-controls="profile" aria-selected="false">Registration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" ng-class="{ active : ActiveTab == 3 }" data-toggle="tab" ng-click="ActiveTab=3" role="tab" aria-controls="contact" aria-selected="false">License</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" ng-class="{ active : ActiveTab == 4 }" data-toggle="tab" ng-click="ActiveTab=4" role="tab" aria-controls="contact" aria-selected="false">Establishment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" ng-class="{ active : ActiveTab == 5 }" data-toggle="tab" ng-click="ActiveTab=5" role="tab" aria-controls="contact" aria-selected="false">Others</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-if="ActiveTab == 1" role="tabpanel">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Company Name<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="BusinessModel.CompanyName" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Address<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="BusinessModel.Address" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Contact No<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="BusinessModel.PhoneNumber" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Company Admin Name<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="BusinessModel.CompanyAdminName" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Company Admin Email<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-model="BusinessModel.CompanyAdminEmail" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Admin Login ID<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" ng-disabled="BusinessModel.Id>0" maxlength="8" ng-model="BusinessModel.CompanyAdminLoginID" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row" ng-if="BusinessModel.Id==0">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Admin Password<span class="required-field">*</span></label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control validator" maxlength="8" ng-model="BusinessModel.AdminAssignedPassword" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-10 control-label">Do you want multiple devices to login to the app for employee?</label>
+                                        <div class="col-sm-2">
+                                            <label class="switch switch-primary">
+                                                <input type="checkbox" class="switch-input" ng-model="BusinessModel.IsMultipleDevieAllow" />
+                                                <span data-off="No" data-on="Yes" class="switch-label"></span>
+                                                <span class="switch-handle"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 2"  role="tabpanel">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">CR Number</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control" ng-model="BusinessModel.CompanyRegistrationNumber" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expiry Date</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" angdatepicker class="form-control" ng-model="BusinessModel.CompanyRegistrationExpiryDateVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expires In</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" valid-number class="form-control" ng-model="BusinessModel.CompanyRegistrationExpiresInDays" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Attachments:</label>
+                                        <div class="col-sm-7" style="float:right">
+                                            <div class="fileUpload-div">
+                                                <label for="cr_files" class="attachment-icon"></label>
+                                                <input id="cr_files" type="file" style="visibility:hidden;" class="upload" onchange="angular.element(this).scope().CRFilettachment(this)" />
+                                            </div>
+                                            <div class="file-display" ng-repeat="file in BusinessModel.DocumentList" ng-show="file.IsNew && file.AttachmentType=='CompanyRegistration'">
+                                                <span class="file-name">{{file.FileName}}</span>
+                                                <span class="file-cross" ng-click="DeleteAttachedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                            <div class="file-display" ng-repeat="doc in BusinessModel.DocumentList" ng-show="!doc.IsNew && !doc.IsDeleted && doc.AttachmentType=='CompanyRegistration'">
+                                                <span class="existing-file-name" ng-click="AzureDocumentDownload(doc.UploadedFileFullPath)">
+                                                    {{doc.FileName}}
+                                                </span>
+                                                <span class="file-cross" ng-click="DeleteUplodedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 3" role="tabpanel">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">License Number</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control" ng-model="BusinessModel.TradeLicenseNumber" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expiry Date</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" angdatepicker class="form-control" ng-model="BusinessModel.TradeLicenseExpiryDateVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expires In</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" valid-number class="form-control" ng-model="BusinessModel.TradeLicenseExpiresInDays" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Attachments:</label>
+                                        <div class="col-sm-7" style="float:right">
+                                            <div class="fileUpload-div">
+                                                <label for="trade_files" class="attachment-icon"></label>
+                                                <input id="trade_files" type="file" style="visibility:hidden;" class="upload" onchange="angular.element(this).scope().tradeLicenseFilettachment(this)" />
+                                            </div>
+                                            <div class="file-display" ng-repeat="file in BusinessModel.DocumentList" ng-show="file.IsNew && file.AttachmentType=='TradeAndMunicipalLicense'">
+                                                <span class="file-name">{{file.FileName}}</span>
+                                                <span class="file-cross" ng-click="DeleteAttachedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                            <div class="file-display" ng-repeat="doc in BusinessModel.DocumentList" ng-show="!doc.IsNew && !doc.IsDeleted && doc.AttachmentType=='TradeAndMunicipalLicense'">
+                                                <span class="existing-file-name" ng-click="AzureDocumentDownload(doc.UploadedFileFullPath)">
+                                                    {{doc.FileName}}
+                                                </span>
+                                                <span class="file-cross" ng-click="DeleteUplodedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 4" role="tabpanel">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Establishment Card Number</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control" ng-model="BusinessModel.EstablishmentCardNumber" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expiry Date</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" angdatepicker class="form-control" ng-model="BusinessModel.EstablishmentCardExpiryDateVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expires In</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" valid-number class="form-control" ng-model="BusinessModel.EstablishmentCardExpiresInDays" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Attachments:</label>
+                                        <div class="col-sm-7" style="float:right">
+                                            <div class="fileUpload-div">
+                                                <label for="establish_files" class="attachment-icon"></label>
+                                                <input id="establish_files" type="file" style="visibility:hidden;" class="upload" onchange="angular.element(this).scope().establishmentCardFilettachment(this)" />
+                                            </div>
+                                            <div class="file-display" ng-repeat="file in BusinessModel.DocumentList" ng-show="file.IsNew && file.AttachmentType=='EstablishmentCard'">
+                                                <span class="file-name">{{file.FileName}}</span>
+                                                <span class="file-cross" ng-click="DeleteAttachedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                            <div class="file-display" ng-repeat="doc in BusinessModel.DocumentList" ng-show="!doc.IsNew && !doc.IsDeleted && doc.AttachmentType=='EstablishmentCard'">
+                                                <span class="existing-file-name" ng-click="AzureDocumentDownload(doc.UploadedFileFullPath)">
+                                                    {{doc.FileName}}
+                                                </span>
+                                                <span class="file-cross" ng-click="DeleteUplodedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="ActiveTab == 5" role="tabpanel">
+                        <div class="card-body">
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Hr Director</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" class="form-control" ng-model="BusinessModel.HrDirectorCode" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expiry Date</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" angdatepicker class="form-control" ng-model="BusinessModel.OthersExpiryDateVw" style="float:left;margin-right:10px;width:85%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Expires In</label>
+                                        <div class="col-sm-7" style="float:left">
+                                            <input type="text" valid-number class="form-control" ng-model="BusinessModel.OthersExpiresInDays" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:5px" class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-5 control-label" style="float:left">Attachments:</label>
+                                        <div class="col-sm-7" style="float:right">
+                                            <div class="fileUpload-div">
+                                                <label for="other_files" class="attachment-icon"></label>
+                                                <input id="other_files" type="file" style="visibility:hidden;" class="upload" onchange="angular.element(this).scope().othersFilettachment(this)" />
+                                            </div>
+                                            <div class="file-display" ng-repeat="file in BusinessModel.DocumentList" ng-show="file.IsNew && file.AttachmentType=='Others'">
+                                                <span class="file-name">{{file.FileName}}</span>
+                                                <span class="file-cross" ng-click="DeleteAttachedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                            <div class="file-display" ng-repeat="doc in BusinessModel.DocumentList" ng-show="!doc.IsNew && !doc.IsDeleted && doc.AttachmentType=='Others'">
+                                                <span class="existing-file-name" ng-click="AzureDocumentDownload(doc.UploadedFileFullPath)">
+                                                    {{doc.FileName}}
+                                                </span>
+                                                <span class="file-cross" ng-click="DeleteUplodedDoc(BusinessModel.DocumentList,$index)">x</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+        </div>
+    </div>
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-default" ng-click="closeModal()">Close</button>
+        </div>
+    </div>
+</div>

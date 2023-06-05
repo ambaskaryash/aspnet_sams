@@ -1,0 +1,116 @@
+﻿
+<style type="text/css">
+    .modal-xl {
+        width: 75% !important;
+        margin-left: 15%
+    }
+
+    .switch-input:checked ~ .switch-handle {
+        margin-left: 45px;
+    }
+</style>
+<div id="fundApprovalSetup">
+    <div class="modal-header">
+        <div class="modal-title">Edit User Details</div>
+        <div class="header-button-group">
+            <div class="icon-cros" title="Close" ng-click="closeModal()">X</div>
+        </div>
+
+    </div>
+
+    <div class="modal-body">
+
+        <div class="content-panel light">
+            <div style="margin-top:5px" class="row">
+                <div class="col-sm-12">
+
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Full Name<span class="required-field">*</span></label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" valid-number class="form-control validator" ng-model="BusinessModel.FullName" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Email</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" class="form-control" ng-model="BusinessModel.Email" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Contact No</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" valid-number class="form-control" ng-model="BusinessModel.ContactNo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Role</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" disabled class="form-control" ng-model="BusinessModel.RoleName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Company Name</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" disabled class="form-control" ng-model="BusinessModel.CompanyName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label"  style="float:left">Login ID</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <input type="text" disabled class="form-control" ng-model="BusinessModel.LoginID" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px" class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" style="float:left">Status</label>
+                                <div class="col-sm-8" style="float:left">
+                                    <label class="switch switch-primary">
+                                        <input type="checkbox" class="switch-input" ng-model="BusinessModel.IsActive" />
+                                        <span style="width:87px" data-off="Disabled" data-on="Enabled" class="switch-label"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="clear: both;">
+        <div class="col-sm-12" style="text-align: right;">
+            <button type="button" class="btn btn-success" ng-click="Save()">Save</button>
+        </div>
+    </div>
+
+</div>
+
+
+

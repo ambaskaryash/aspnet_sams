@@ -1,0 +1,27 @@
+﻿
+.navbar {
+    background-color: #39aefa!important;
+}
+
+#prescription .panel-heading {
+    background-color: #39aefa!important;
+    color: #fff!important;
+}
+
+.btn-xs, .btn-group-xs > .btn {
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #286090!important;
+    color: #fff!important;
+}
+
+.btn-success,.btn-default,.btn-primary {
+    border-radius: 0px;
+}
+.btn-background-none {
+    background-color: #39AEFA;
+    border-radius: 0px;
+    border-color: #39aefa!important;
+}

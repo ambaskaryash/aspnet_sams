@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Areas/AttendanceTracking/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style type="text/css">
+     .ui-jqgrid .ui-jqgrid-bdiv{
+    overflow-x:hidden!important;
+    }
+    .form-panel-body {
+        margin-top: 0 !important;
+    }
+
+    .userFileUpload {
+        clear: both;
+        padding-top: 10px;
+    }
+
+        .userFileUpload input[type="file"] {
+            background: none !important;
+            border: 0 none !important;
+            width: auto;
+            height: auto !important;
+            padding: 0;
+            margin-right: 15px;
+        }
+</style>
+
+
+<div class="container-fluid" id="divWrapper" ng-controller="employeeController">
+    <h4>Employee List</h4>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-1">
+            <button type="button" class="btn btn-primary" style="margin-bottom:20px;" ng-click="AddOrEdit(0)">New</button>
+        </div>
+        <div class="col-md-8">
+           
+        </div>
+
+        <div class="col-md-1">
+            <a class="export-excel" style="float:right;cursor:pointer;margin-right:20px;" title="export to excel" ng-click="employeeExportToExcel()"></a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getAllData();
+    });
+
+    function getAllData() {
+        jQuery("#gridList").jqGrid({
+            url: '/AttendanceTracking/Employee/GetAll',
+            datatype: "json",
+            colNames: ['id', '', 'EMP No', 'Employee Name', 'Login ID','Designation', 'Department', 'Status',''],
+            colModel: [
+                { name: 'Id', index: 'Id', hidden: true, key: true },
+                { name: 'ImageFileName', index: 'ImageFileName', width: 60, search: false, formatter: imageviewFomatter, align: 'center' },
+                { name: 'EmployeeCode', index: 'EmployeeCode', width: 90, search: true, formatter: viewFomatter, align: 'center' },
+                { name: 'EmployeeName', index: 'EmployeeName', width: 150, search: true, align: 'center' },
+                { name: 'LoginID', index: 'LoginID', width: 90, search: true, align: 'center' },
+                { name: 'Designation', index: 'Designation', width: 170, search: true, align: 'center' },
+                { name: 'Department', index: 'Department', width: 170, search: true, align: 'center' },
+             
+                { name: 'StatusName', index: 'StatusName', width: 80, search: true,align:'center',formatter: statusFomatter },
+                { name: 'Edit', index: 'Edit', width: 60, search: false, sortable: false, formatter: editFomatter },
+
+            ],
+            rowNum: 15,
+            rowList: [15,20, 30, 40, 50],
+            pager: '#gridPager',
+            sortname: 'EmployeeCode',
+            sortorder: "asc",
+            onSortCol: function (name, index) { },
+            ondblClickRow: function (id) { },
+            height: '100%',
+            width: '100%',
+            viewrecords: true,
+            shrinkToFit: false,
+            rownumbers: true,
+            emptyrecords: "No records to view"
+
+        });
+        jQuery("#gridList").jqGrid('navGrid', "#gridPager", { edit: false, add: false, del: false, search: false });
+        jQuery("#gridList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: true, defaultSearch: "cn" });
+    };
+
+    function imageviewFomatter(cellvalue, options, rowObject) {
+        if (cellvalue != '')
+            return "<img src=" + rowObject.ImagePath + " class='rounded' style='height:50px;'/>";
+        else
+            return "<img src='/Content/images/avater.png' style='height:50px;' />";
+    }
+
+    function statusFomatter(cellvalue, options, rowObject) {
+        if (rowObject.StatusName == 'Active')
+             return "<span class='badge badge-success'>" + cellvalue + "</span>";
+            else 
+                return "<span class='badge badge-warning'>" + cellvalue + "</span>";
+    }
+
+    var viewData = function (id) {
+        angular.element('#divWrapper').scope().AddOrEdit(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+     var editData = function (id) {
+        angular.element('#divWrapper').scope().AddOrEdit(id);
+        angular.element('#divWrapper').scope().$apply();
+    };
+
+    var deleteData = function (id, IsDeleteable) {
+        angular.element('#divWrapper').scope().deleteData(id, IsDeleteable);
+        angular.element('#divWrapper').scope().$apply();
+    };
+
+    function editFomatter(cellvalue, options, rowObject) {
+        return "<a style='' class='pointer' onclick='editData(" + rowObject.Id + ")'><i class='feather icon-edit'></i></a>" +
+            "<a style='' class='pointer' onclick='deleteData(" + rowObject.Id + "," + rowObject.IsDeleteable + ")'><i class='feather icon-trash'></i></a>";
+    }
+
+    function viewFomatter(cellvalue, options, rowObject) {
+        return "<a style='text-decoration:underline;color:blue;' class='pointer' onclick='viewData(" + rowObject.Id + ")'>" + cellvalue + "</a>";
+    }
+
+</script>
